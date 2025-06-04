@@ -1,10 +1,22 @@
 import express from 'express';
-import UserController from '../Controllers/UserController.js';
-import CreatUserRequest from '../Requests/Users/CreatUserRequest.js';
-import validate from '../Middlewares/RequestValidation.js';
+import UserController from '../controllers/userController.js';
+import CreatUserRequest from '../requests/users/CreatUserRequest.js';
+import validate from '../middlewares/RequestValidation.js';
+import { protect as authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
-router.post('/create', CreatUserRequest, validate, (req, res) => UserController.create(req, res));
-router.get('/:id?', (req, res) => UserController.index(req, res));
+
+// Public routes
+router.post('/register', CreatUserRequest, validate, UserController.create);
+router.post('/login', UserController.login);
+
+// Protected routes
+router.use(authMiddleware); // All routes below this will require authentication
+
+router.get('/me', UserController.getProfile);
+router.get('/all', UserController.all);
+router.get('/:id', UserController.index);
+router.put('/:id', CreatUserRequest, validate, UserController.update);
+router.delete('/:id', UserController.delete);
 
 export default router;

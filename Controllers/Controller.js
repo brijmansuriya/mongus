@@ -45,7 +45,7 @@ class Controller {
             if (record) {
                 return this.error(res, null, `${field} already exists`, 400);
             }
-            return record; // No record found, safe to proceed
+            return true; // No record found, safe to proceed
         } catch (err) {
             return this.error(res, err, 'Error while checking record existence');
         }
