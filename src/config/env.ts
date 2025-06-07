@@ -42,3 +42,4 @@ if (!envParse.success) {
 
 // Export validated environment variables
 export const config = envParse.data;
+export default config;

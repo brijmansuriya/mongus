@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Controller } from './Controller';
 import { User } from '@models/User';
 import { IUser, IUserRequest } from '@types/index';
-import config from '@config/env';
+import { config } from '@config/env';
 
 interface TokenUser {
   _id: string;
@@ -12,7 +12,20 @@ interface TokenUser {
   token: string;
 }
 
-export class UserController extends Controller {
+class UserController extends Controller {
+  private static instance: UserController;
+
+  private constructor() {
+    super();
+  }
+
+  public static getInstance(): UserController {
+    if (!UserController.instance) {
+      UserController.instance = new UserController();
+    }
+    return UserController.instance;
+  }
+
   private generateToken(id: string): string {
     return jwt.sign({ id }, config.JWT_SECRET, {
       expiresIn: config.JWT_EXPIRES_IN,
@@ -47,6 +60,7 @@ export class UserController extends Controller {
 
   public async create(req: IUserRequest, res: Response): Promise<Response> {
     try {
+      console.log(req.body);
       const { name, email, password } = req.body;
 
       const user = await User.create({ name, email, password });
@@ -160,4 +174,4 @@ export class UserController extends Controller {
   }
 }
 
-export default new UserController();
+export default UserController;

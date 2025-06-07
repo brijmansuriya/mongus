@@ -1,9 +1,11 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '@models/User';
-import config from '@config/env';
+import { config } from '@config/env';
 import { IUserRequest } from '@types/index';
-import logger from '@utils/logger';
+import { Logger } from '@utils/logger';
+
+const logger = Logger.getInstance(config);
 
 interface JwtPayload {
   id: string;

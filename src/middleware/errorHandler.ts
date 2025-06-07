@@ -14,7 +14,7 @@ export const errorHandler = (
   const message = err instanceof ResponseError ? err.message : 'Internal Server Error';
   const details = err instanceof ResponseError ? err.details : undefined;
 
-  // Log error
+  // Log error with more details
   const logError = {
     statusCode,
     message: err.message,
@@ -25,7 +25,11 @@ export const errorHandler = (
     ip: req.ip,
     body: req.body,
     query: req.query,
-    params: req.params
+    params: req.params,
+    headers: req.headers,
+    originalUrl: req.originalUrl,
+    details: err instanceof ResponseError ? err.details : undefined,
+    error: err
   };
 
   if (statusCode >= 500) {

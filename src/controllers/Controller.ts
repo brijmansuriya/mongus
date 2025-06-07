@@ -1,8 +1,11 @@
 import { Response } from 'express';
 import { ValidationError, Result, validationResult } from 'express-validator';
 import { Model } from 'mongoose';
-import logger from '@utils/logger';
+import { Logger } from '@utils/logger';
+import { config } from '@config/env';
 import { IUserRequest } from '@types/index';
+
+const logger = Logger.getInstance(config);
 
 export class Controller {
   protected success<T>(
