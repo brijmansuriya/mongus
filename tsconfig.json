@@ -1,29 +1,26 @@
-{  "compilerOptions": {
+{
+  "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "sourceMap": true,
-    "strict": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
+    "outDir": "./dist",
+    "strict": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@config/*": ["src/config/*"],
-      "@controllers/*": ["src/controllers/*"],
-      "@middleware/*": ["src/middleware/*"],
-      "@models/*": ["src/models/*"],
-      "@routes/*": ["src/routes/*"],
-      "@utils/*": ["src/utils/*"],
-      "@validation/*": ["src/validation/*"],
-      "@types/*": ["src/types/*"]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+      "@/*": [
+        "./*"
+      ], // '@/' points to the project root
+      "@config/*": [
+        "./config/*"
+      ],
+      "@db/*": [
+        "./database/*"
+      ],
+      // Add aliases as needed
+    },
+  },  "include": [
+    "*.ts",
+    "**/*.ts"
+  ]
 }

@@ -1,68 +1,37 @@
 {
-  "name": "mongus-api",
+  "name": "mongus",
   "version": "1.0.0",
-  "description": "MongoDB User Service API",
-  "main": "dist/index.js",
+  "main": "index.js",
   "type": "module",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node dist/index.js",
-    "dev": "cross-env NODE_ENV=development tsx watch src/index.ts",
+    "dev": "tsx watch index.ts",
     "build": "tsc",
-    "clean": "rimraf dist",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest --detectOpenHandles",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "prepare": "husky install",
-    "typecheck": "tsc --noEmit"
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brijmansuriya/mongus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brijmansuriya/mongus/issues"
+  },
+  "homepage": "https://github.com/brijmansuriya/mongus#readme",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.15.30",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "compression": "^1.8.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "express-rate-limit": "^7.5.0",
-    "express-validator": "^7.2.0",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.6.2",
-    "winston": "^3.17.0",
-    "zod": "^3.25.56"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/compression": "^1.7.5",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/express-validator": "^2.20.33",
-    "@types/jest": "^29.5.14",
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^20.11.24",
-    "@types/supertest": "^6.0.3",
-    "@types/winston": "^2.4.4",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "husky": "^9.1.0",
-    "jest": "^29.7.0",
-    "jest-environment-node": "^30.0.0-beta.3",
-    "mongodb-memory-server": "^10.1.4",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "supertest": "^7.1.1",
-    "ts-jest": "^29.3.4",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.19.4",
-    "typescript": "^5.3.3"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1"
   }
 }
