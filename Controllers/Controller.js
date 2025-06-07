@@ -11,7 +11,7 @@ class Controller {
     }
 
     error(res, error, message = 'Error occurred', statusCode = 500) {
-        console.log('Controller');
+        console.log('base Controller');
         return res.status(statusCode).json({
             success: false,
             message,

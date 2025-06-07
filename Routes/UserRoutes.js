@@ -3,6 +3,7 @@ import UserController from '../controllers/userController.js';
 import CreatUserRequest from '../requests/users/CreatUserRequest.js';
 import validate from '../middlewares/RequestValidation.js';
 import { protect as authMiddleware } from '../middlewares/authMiddleware.js';
+import logger from '../utils/logger.js';
 
 const router = express.Router();
 

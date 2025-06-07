@@ -1,12 +1,13 @@
 import User from '../models/User.js';
 import Controller from './Controller.js';
 import jwt from 'jsonwebtoken';
+import config from '../config/env.js';
 
 class UserController extends Controller {
   // Generate JWT Token
   generateToken(id) {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: '30d',
+    return jwt.sign({ id }, config.JWT_SECRET, {
+      expiresIn: config.JWT_EXPIRES_IN,
     });
   }
 
@@ -15,13 +16,13 @@ class UserController extends Controller {
       const { email, password } = req.body;
 
       const user = await User.findOne({ email });
-      
+
       if (!user || !(await user.matchPassword(password))) {
         return this.error(res, null, 'Invalid email or password', 401);
       }
 
       const token = this.generateToken(user._id);
-      
+
       return this.success(res, {
         _id: user._id,
         name: user.name,
@@ -38,26 +39,28 @@ class UserController extends Controller {
       if (!req.params.id) {
         return this.error(res, null, 'User ID is required', 400);
       }
-      
+
       const user = await User.findById(req.params.id).select('-password');
-      
+
       if (!user) {
         return this.error(res, null, 'User not found', 404);
       }
-      
+
       return this.success(res, user, 'User retrieved successfully');
     } catch (error) {
       return this.error(res, error, 'Error retrieving user');
     }
   }
-
-  async create(req, res) {
+  create = async (req, res) => {
     try {
       const { name, email, password } = req.body;
-      
+
       const userExists = await User.findOne({ email });
+
       if (userExists) {
-        return this.error(res, null, 'User already exists', 400);
+        //  error
+        console.log('::::::::::::UserController');
+        return this.error(res, null, 'Email already exists', 400);
       }
 
       const user = await User.create({
@@ -67,7 +70,7 @@ class UserController extends Controller {
       });
 
       const token = this.generateToken(user._id);
-      
+
       return this.success(res, {
         _id: user._id,
         name: user.name,
@@ -82,7 +85,7 @@ class UserController extends Controller {
   async delete(req, res) {
     try {
       const user = await User.findById(req.params.id);
-      
+
       if (!user) {
         return this.error(res, null, 'User not found', 404);
       }
@@ -106,20 +109,20 @@ class UserController extends Controller {
   async updateProfile(req, res) {
     try {
       const user = await User.findById(req.user._id);
-      
+
       if (!user) {
         return this.error(res, null, 'User not found', 404);
       }
 
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      
+
       if (req.body.password) {
         user.password = req.body.password;
       }
 
       const updatedUser = await user.save();
-      
+
       return this.success(res, {
         _id: updatedUser._id,
         name: updatedUser.name,
@@ -142,7 +145,7 @@ class UserController extends Controller {
   async update(req, res) {
     try {
       const user = await User.findById(req.params.id);
-      
+
       if (!user) {
         return this.error(res, null, 'User not found', 404);
       }
@@ -164,7 +167,7 @@ class UserController extends Controller {
       }
 
       const updatedUser = await user.save();
-      
+
       return this.success(res, {
         _id: updatedUser._id,
         name: updatedUser.name,

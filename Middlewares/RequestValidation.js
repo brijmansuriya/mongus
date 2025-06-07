@@ -1,6 +1,8 @@
 import { validationResult } from 'express-validator';
 
 export default (req, res, next) => {
+    console.log(`Validation middleware triggered for ${req.method} ${req.originalUrl}`);
+    
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
